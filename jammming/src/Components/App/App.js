@@ -37,6 +37,11 @@ class App extends Component {
       playlistName: 'New Playlist'
     }
   }
+
+  addTrack(track) {
+    
+  }
+
   render() {
     return (
       <div>
