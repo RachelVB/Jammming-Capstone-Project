@@ -20,6 +20,11 @@ class Track extends React.Component {
     this.props.onAdd(this.props.track);
   }
 
+  
+  removeTrack() {
+    this.props.track.onRemove(this.props.playlistTracks)
+  }
+
   render() {
     return (
       <div className="Track">

@@ -37,6 +37,7 @@ class App extends Component {
       playlistName: 'New Playlist'
     }
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
 
   addTrack(track) {
@@ -45,8 +46,10 @@ class App extends Component {
     }
   }
 
+  // STEP 49: I'm not clear on this step. Check if I get errors on this.
   removeTrack(track) {
-    
+    this.state.playlistTracks.filter(track.id);
+    this.setState = this.state.playlistTracks;
   }
 
   render() {
@@ -55,10 +58,10 @@ class App extends Component {
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
           <SearchBar />
-          <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} onAdd={this.state.addTrack} />
-            <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} />
-          </div>
+        <div className="App-playlist">
+          <SearchResults searchResults={this.state.searchResults} onAdd={this.state.addTrack} />
+          <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.state.removeTrack} />
+        </div>
         </div>
       </div>
     );
