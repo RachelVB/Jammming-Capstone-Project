@@ -36,8 +36,13 @@ class App extends Component {
     ],
       playlistName: 'New Playlist'
     }
+    /* Everytime we create a new method, 
+    we need to 'bind' this to our method so that we can use it. */
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
+    this.search = this.search.bind(this);
   }
 
   addTrack(track) {
@@ -52,15 +57,29 @@ class App extends Component {
     this.setState = this.state.playlistTracks;
   }
 
+  // STEP 57: Check this method if there are errors.
+  updatePlaylistName(name) {
+    this.setState = name;
+  }
+
+  // STEP 63: Wasent clear if this is the way to do it. Chek if errors.
+  savePlaylist() {
+    this.props.playlistTracks = [this.props.trackURIs];
+  }
+
+  search(term) {
+    console.log(term);
+  }
+
   render() {
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          <SearchBar />
+          <SearchBar onSearch={this.state.search} />
         <div className="App-playlist">
           <SearchResults searchResults={this.state.searchResults} onAdd={this.state.addTrack} />
-          <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.state.removeTrack} />
+          <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.state.removeTrack} onNameChange={this.state.updatePlaylistName} />
         </div>
         </div>
       </div>
