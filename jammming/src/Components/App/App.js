@@ -3,6 +3,7 @@ import './App.css';
 import SearchBar from '../SearchBar/searchbar';
 import SearchResults from '../SearchResults/searchresults';
 import Playlist from './../Playlist/playlist';
+import Spotify from './../../util/Spotify.js';
 
 class App extends Component {
   constructor(props){
@@ -64,11 +65,15 @@ class App extends Component {
 
   // STEP 63: Wasent clear if this is the way to do it. Chek if errors.
   savePlaylist() {
-    this.props.playlistTracks = [this.props.trackURIs];
+    let trackURIs = this.state.playlistTracks.map(track => track.uri);
+    Spotify.savePlaylist(this.state.playlistName, trackURIs);
   }
 
   search(term) {
     console.log(term);
+    Spotify.search(term).then(tracks => {
+      this.setState({searchResults: tracks});
+    })
   }
 
   render() {
