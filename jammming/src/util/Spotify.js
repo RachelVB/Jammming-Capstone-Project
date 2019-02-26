@@ -54,6 +54,7 @@ const Spotify = {
     return response.json()
   }).then((jsonResponse) => {
     return jsonResponse.id = userID
+  // eslint-disable-next-line no-sequences
   }),
   fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
     method: 'POST',
