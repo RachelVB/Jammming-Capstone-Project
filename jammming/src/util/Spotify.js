@@ -54,8 +54,35 @@ const Spotify = {
     return response.json()
   }).then((jsonResponse) => {
     return jsonResponse.id = userID
+  }),
+  fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify({name: this.playlistID})
+  }).then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error('Request failed!');
+  }, networkError => {console.log(networkError.message)
+  }).then(jsonResponse => {
+    jsonResponse.id = this.playlistID;
+  }),
+  fetch(`https://api.spotify.com/playlists/${this.playlistID}`, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify({uri: this.tracks.map(item => this.uri)})
+  }).then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error('Request failed!');
+  }, networkError => {console.log(networkError.message)
+  }).then(jsonResponse => {
+    jsonResponse.id = this.playlistID;
   })
   }
+  
 }
 
 export default Spotify;
