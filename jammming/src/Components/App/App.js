@@ -36,7 +36,7 @@ class App extends Component {
       }
     ],
       playlistName: 'New Playlist'
-    }
+    };
     /* Everytime we create a new method, 
     we need to 'bind' this to our method so that we can use it. */
     this.addTrack = this.addTrack.bind(this);
@@ -50,12 +50,14 @@ class App extends Component {
     if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
       return;
     }
+    let newPlaylistTracks = this.state.playlistTracks.concat(track);
+    this.setState({playlistTracks: newPlaylistTracks});
   }
 
   // STEP 49: I'm not clear on this step. Check if I get errors on this.
   removeTrack(track) {
-    this.state.playlistTracks.filter(track.id);
-    this.setState = this.state.playlistTracks;
+    let currentPlaylistTracks = this.state.playlistTracks.filter(deleteTrack => deleteTrack.id !== track.id);
+    this.setState = ({playlistTracks: currentPlaylistTracks});
   }
 
   // STEP 57: Check this method if there are errors.

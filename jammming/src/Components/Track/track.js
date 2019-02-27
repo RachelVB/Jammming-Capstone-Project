@@ -12,14 +12,16 @@ class Track extends React.Component {
   renderAction () {
     if (this.props.isRemoval) {
       return (
-        <a href
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+        <a
         className="Track-action"
         onClick={this.props.removeTrack}
         >-</a>
       );
     } else {
       return (
-        <a href
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+        <a
         className="Track-action"
         onClick={this.props.addTrack}
         >+</a>
