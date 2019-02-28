@@ -9,44 +9,9 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      searchResults: [{
-        name: 'LadyGaga',
-        artist: 'LadyGaga',
-        album: 'Monster',
-        id: 'Album3'
-      },
-      {name: 'Madonna',
-        artist: 'Madonna',
-        album: 'Nintys Album',
-        id: 'Album9'
-      },
-      {
-        name: 'Rock song',
-        artist: 'Some nintys artist',
-        album: 'Benny and the Jets',
-        id: 'Album7'
-      }
-      ],
-      playlistTracks: [{
-        name: 'Madonna',
-        artist: 'Madonna',
-        album: 'Nintys Album',
-        id: 'Album9'
-      },
-      {
-        name: 'LadyGaga',
-        artist: 'LadyGaga',
-        album: 'Monster',
-        id: 'Album3'
-      },
-      {
-        name: 'Rock song',
-        artist: 'Some nintys artist',
-        album: 'Benny and the Jets',
-        id: 'Album7'
-      }
-    ],
-      playlistName: 'New Playlist'
+      searchResults: [],
+      playlistName: 'New Playlist',
+      playlistTracks: []
     };
     /* Everytime we create a new method, 
     we need to 'bind' this to our method so that we can use it. */
@@ -84,10 +49,10 @@ class App extends Component {
   }
 
   search(term) {
-    Spotify.search(term).then(searchTracks => {
-    this.setState({searchResults : searchTracks});
-  });
-}
+    console.log(term);
+    Spotify.search(term)
+    .then(tracks => {this.setState({searchResults: tracks})});
+  }
 
   render() {
     return (
