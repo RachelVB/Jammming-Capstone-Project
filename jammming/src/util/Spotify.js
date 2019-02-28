@@ -21,12 +21,18 @@ const Spotify = {
     }
   },
   search: async function (term) {
-    return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {headers: {Authorization: `Bearer ${userAccessToken}`}
+    let accessToken = await this.getAccessToken();
+    if (!accessToken) {
+      console.log('No access token')
+      return [];
+    }
+    const mainTerm = encodeURI(term);
+    return fetch(`https://api.spotify.com/v1/search?q=${mainTerm}&type=track`, {headers: {Authorization: `Bearer ${userAccessToken}`}
   }).then((response) => {
       return response.json()
   }).then((jsonResponse) => {
     if (jsonResponse.track) {
-      return jsonResponse.tracks.map(((track) => {
+      return jsonResponse.tracks.map((track) => {
         return {
           id: track.id,
           name: track.name,
@@ -34,7 +40,7 @@ const Spotify = {
           album: track.album.name,
           uri: track.uri
         }
-      }))
+      });
     }
   })
   },
@@ -42,21 +48,27 @@ const Spotify = {
     if (!name && trackArray.length === 0) {
       return;
     }
-    let accessToken = userAccessToken;
+    let accessToken = userAccessToken();
     // if (!accessToken) {
     //   console.log('No access token');
     //   return;
     // }
-    const headers = {Authorization: `Bearer ${accessToken}` };
-    let userID;
-    return fetch(`https://api.spotify.com/v1/me`, {headers: headers}
+    const headers = {Authorization: `Bearer ${accessToken}`,
+    Accept: 'application/json',
+    'Content-Type': 'application/json'};
+    const userID = await fetch(`https://api.spotify.com/v1/me`, {headers: headers}
   ).then((response) => {
-    return response.json()
-  }).then((jsonResponse) => {
-    return jsonResponse.id = userID
-  // eslint-disable-next-line no-sequences
-  }),
-  fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+    return response.json();
+  }, networkError => console.log(networkError.error)
+  ).then((jsonResponse) => {
+    if (jsonResponse && jsonResponse.id) {
+      console.log('Error!');
+    }
+  });
+  if (!userID){
+    return;
+  }
+  const playlistID = await fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
     method: 'POST',
     headers: headers,
     body: JSON.stringify({name: this.playlistID})
@@ -65,25 +77,17 @@ const Spotify = {
       return response.json();
     }
     throw new Error('Request failed!');
+
   }, networkError => {console.log(networkError.message)
   }).then(jsonResponse => {
-    jsonResponse.id = this.playlistID;
-  }),
-  fetch(`https://api.spotify.com/playlists/${this.playlistID}`, {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify({uri: this.tracks.map(item => this.uri)})
-  }).then(response => {
-    if (response.ok) {
-      return response.json();
+    if (jsonResponse && jsonResponse.id) {
+      console.log(`Error creating ${name}: ${jsonResponse.error.message}`);
     }
-    throw new Error('Request failed!');
-  }, networkError => {console.log(networkError.message)
-  }).then(jsonResponse => {
-    jsonResponse.id = this.playlistID;
-  })
+  });
+  if (!playlistID) {
+    return;
   }
-  
+  }
 }
 
 export default Spotify;

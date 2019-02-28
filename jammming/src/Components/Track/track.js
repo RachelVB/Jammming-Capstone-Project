@@ -15,7 +15,7 @@ class Track extends React.Component {
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <a
         className="Track-action"
-        onClick={this.props.removeTrack}
+        onClick={this.removeTrack}
         >-</a>
       );
     } else {
@@ -23,7 +23,7 @@ class Track extends React.Component {
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <a
         className="Track-action"
-        onClick={this.props.addTrack}
+        onClick={this.addTrack}
         >+</a>
       );
     }
