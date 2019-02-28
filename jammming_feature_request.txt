@@ -1,0 +1,12 @@
+Design Document Template
+February 28th  2019
+OBJECTIVE
+My feature objective is when the user presses the ‘Enter’ key, the search will commence. 
+BACKGROUND 
+The feature is important for a excellent user experience. When a user enters a site, fills out a form, writes a review, enters their email; they expect that pressing ‘Enter’ will automatically submit. If this feature isn't enabled,  and the user must enter multiple pieces of information individually (such as uploading documents in a web application or even going through a form web page by web page), then we have a higher chance that the user will not return to use our app. This technical design below will show how we implement this feature in my React app. 
+TECHNICAL DESIGN
+First we will go to our ‘SearchBar’ component. I would create a new method called “handleEnter’ with an argument of ‘event’. Then bind this new method in our constructor. Second, I would create a conditional if statement that if the event.key equals the ‘enter’, then set the state to the value of the event.target.value. 
+Once thats complete, I would add a new ‘onkeypress’ attribute to my ‘a’ element in my render function and set the value equal to ‘this.handleEnter’ method. We will add this same attribute to our ‘App,js’ file inside our ‘SearchBar’ component. 
+CAVEATS
+Alternatively, we could use this event as a method inside the ‘App,js’ file, but in order to optimize our code, we are using this feature inside the searchBar component. 
+We could encounter the problem of the event not functioning. We may need to alter the conditional statement inside our searchBar component, AND we may need to add a keypress method anyway to our App.s file. As of right now, this is the most effective and cost-effective way we can implement this feature in our application.

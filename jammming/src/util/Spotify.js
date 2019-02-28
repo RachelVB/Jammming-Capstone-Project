@@ -22,8 +22,8 @@ const Spotify = {
       window.location = authUrl;
     }
   },
-  search: async function (term) {
-    let accessToken = await this.getAccessToken();
+  search(term) {
+    let accessToken = this.getAccessToken();
     if (!accessToken) {
       console.log('No access token')
       return [];
