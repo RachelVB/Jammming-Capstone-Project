@@ -1,7 +1,10 @@
-
+const url = 'https://accounts.spotify.com/authorize';
 let userAccessToken;
 let redirectURI = 'http://localhost:3000/';
 let clientID = '5bd1f5304dc54c2581705626669a4af7';
+const responseType = 'token';
+const scope = 'playlist-modify-public';
+const authorization_url = `${url}?client_id=${clientID}&response_type=${responseType}&scope=${scope}&redirect_uri=${redirectURI}`;
 
 const Spotify = {
   getAccessToken() {
@@ -16,8 +19,7 @@ const Spotify = {
   
       return accessToken;
     } else {
-      let url = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
-      window.location = url;
+      window.location = authorization_url;
     }
   },
   search: async function (term) {
