@@ -23,7 +23,7 @@ class SearchBar extends React.Component {
       <div className="SearchBar">
         <input placeholder="Enter A Song, Album, or Artist" onChange={this.handleTermChange} />
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <a onClick={this.onSearch}>SEARCH</a>
+        <a onClick={this.search}>SEARCH</a>
       </div>
     )
   }

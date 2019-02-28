@@ -29,28 +29,28 @@ const Spotify = {
       return [];
     }
     const mainTerm = encodeURI(term);
-    return fetch(`https://api.spotify.com/v1/search?q=${mainTerm}&type=track`, {headers: {Authorization: `Bearer ${userAccessToken}`}
+    return fetch(`https://api.spotify.com/v1/search?q=${mainTerm}&type=track`, {headers: {Authorization: `Bearer ${accessToken}`}
   }).then((response) => {
       return response.json()
   }).then((jsonResponse) => {
-    if (jsonResponse.track) {
-      return jsonResponse.tracks.map((track) => {
-        return {
-          id: track.id,
-          name: track.name,
-          artist: track.artists[0].name,
-          album: track.album.name,
-          uri: track.uri
-        }
-      });
+    if (jsonResponse.tracks) {
+      return jsonResponse.tracks.items.map(track => ({
+        id: track.id,
+        name: track.name,
+        artist: track.artists[0].name,
+        album: track.album.name,
+        uri: track.uri
+      }))
+    } else {
+      return []
     }
   })
   },
-  savedPlaylist: async function (name,trackArray) {
+  savePlaylist: async function (name,trackArray) {
     if (!name && trackArray.length === 0) {
       return;
     }
-    let accessToken = userAccessToken();
+    let accessToken = this.getAccessToken();
     // if (!accessToken) {
     //   console.log('No access token');
     //   return;
