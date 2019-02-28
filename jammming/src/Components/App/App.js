@@ -15,6 +15,11 @@ class App extends Component {
         album: 'Monster',
         id: 'Album3'
       },
+      {name: 'Madonna',
+        artist: 'Madonna',
+        album: 'Nintys Album',
+        id: 'Album9'
+      },
       {
         name: 'Rock song',
         artist: 'Some nintys artist',
@@ -27,6 +32,12 @@ class App extends Component {
         artist: 'Madonna',
         album: 'Nintys Album',
         id: 'Album9'
+      },
+      {
+        name: 'LadyGaga',
+        artist: 'LadyGaga',
+        album: 'Monster',
+        id: 'Album3'
       },
       {
         name: 'Rock song',
