@@ -64,7 +64,9 @@ const Spotify = {
   }, networkError => console.log(networkError.error)
   ).then((jsonResponse) => {
     if (jsonResponse && jsonResponse.id) {
-      console.log('Error!');
+      return jsonResponse.id;
+    } else if (jsonResponse && jsonResponse.error) {
+      console.log(`Error: ${jsonResponse.error.message}`);
     }
   });
   if (!userID){
