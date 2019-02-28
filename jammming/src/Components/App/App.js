@@ -54,31 +54,29 @@ class App extends Component {
     this.setState({playlistTracks: newPlaylistTracks});
   }
 
-  // STEP 49: I'm not clear on this step. Check if I get errors on this.
   removeTrack(track) {
     let currentPlaylistTracks = this.state.playlistTracks.filter(deleteTrack => deleteTrack.id !== track.id);
-    this.setState = ({playlistTracks: currentPlaylistTracks});
+      this.setState({playlistTracks: currentPlaylistTracks});
   }
 
-  // STEP 57: Check this method if there are errors.
   updatePlaylistName(name) {
-    this.setState = name;
+    this.setState({playlistName: name});
   }
 
-  // STEP 63: Wasent clear if this is the way to do it. Chek if errors.
   savePlaylist() {
     let trackURIs = this.state.playlistTracks.map(track => track.uri);
-    Spotify.savePlaylist(this.state.playlistName, trackURIs);
-    this.setState = this.playlistName('New Playlist');
-    this.setState = this.playlistTracks([]);
+    Spotify.savePlaylist(this.state.playlistName, trackURIs).then(response => {
+      if (response) {
+        this.setState({playlistName: 'New Playlist',
+        playlistTracks: [] });
+      }});
   }
 
   search(term) {
-    console.log(term);
-    Spotify.search(term).then(tracks => {
-      this.setState({searchResults: tracks});
-    })
-  }
+    Spotify.search(term).then(searchTracks => {
+    this.setState({searchResults : searchTracks});
+  });
+}
 
   render() {
     return (
