@@ -62,7 +62,7 @@ const Spotify = {
       headers: headers}
     ).then(response => {
       if (response.ok) {
-        response.json()
+        return response.json()
       }
       throw new Error('Request Failed!');
     }, networkError => console.log(networkError.message)
@@ -74,7 +74,7 @@ const Spotify = {
         body: JSON.stringify({name: name})
       }).then(response => {
         if (response.ok) {
-          response.json()
+          return response.json()
         }
         throw new Error('Request Failed!');
       }, networkError => console.log(networkError.message)
