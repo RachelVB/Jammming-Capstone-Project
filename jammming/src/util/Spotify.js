@@ -1,6 +1,6 @@
 const url = 'https://accounts.spotify.com/authorize';
 let userAccessToken = '';
-let redirectURI = 'http://localhost:3000/';
+let redirectURI = 'jammmingpro3.surge.sh';
 let clientID = '5bd1f5304dc54c2581705626669a4af7';
 const responseType = 'token';
 const scope = 'playlist-modify-public';
